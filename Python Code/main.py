@@ -1,11 +1,13 @@
+#import modules
 import psutil
 import wmi
 from plyer import notification
 import time
 import tkinter as tk
+#comunicates with Config.py file
 import Config
 
-
+#call variables used
 statement = True
 poststate = False
 
@@ -23,7 +25,8 @@ while True:
             except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
                 pass
         return False;
-
+    
+    #check of procces one is running
     if checkIfProcessRunning(Config.true1):
         print('Yes a FILE2N process was running.')
         statement = True
@@ -31,19 +34,21 @@ while True:
     else:
         print('No FILE2N process was running.')
 
-
+    #check of procces two is running
     if checkIfProcessRunning(Config.true2):
             statement = True
 
     else:
         print('No FILE2N process was running')
-
+        
+        #check of procces three is running
     if checkIfProcessRunning(Config.false1):
         statement = False
 
     else:
         print('No FILE3P process was running')
 
+    #check if procces four is running
     if checkIfProcessRunning(Config.false2):
         print('Yes a FILE4P process was running')
         statement = False
@@ -54,6 +59,7 @@ while True:
     if statement == poststate:
         print("no change")
 
+        #sends notifications to windows receiver
     elif statement == False:
         print("change detected")
         notification.notify(
@@ -73,5 +79,6 @@ while True:
             timeout=10,
 
         )
+        #reset poststate
         poststate = True
 
